@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/cn_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://script/Download.gd" type="Script" id=3]
+[ext_resource path="res://script/menu/MenuList.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Theme" id=8]
+default_font = ExtResource( 1 )
+
+[sub_resource type="InputEventKey" id=4]
+alt = true
+scancode = 68
+
+[sub_resource type="ShortCut" id=5]
+shortcut = SubResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.172549, 0.172549, 0.172549, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.129412, 0.129412, 0.129412, 1 )
+border_blend = true
+
+[sub_resource type="InputEventKey" id=6]
+alt = true
+scancode = 67
+
+[sub_resource type="ShortCut" id=7]
+shortcut = SubResource( 6 )
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 8 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Download" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="ReleaseTimer" type="Timer" parent="Download"]
+autostart = true
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+custom_constants/separation = 8
+
+[node name="MenuList" parent="Panel/VBox" instance=ExtResource( 4 )]
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox"]
+margin_top = 42.0
+margin_right = 1010.0
+margin_bottom = 80.0
+size_flags_vertical = 0
+custom_constants/separation = 8
+
+[node name="UrlBox" type="LineEdit" parent="Panel/VBox/HBox"]
+margin_right = 917.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+placeholder_text = "输入网络地址"
+
+[node name="Download" type="Button" parent="Panel/VBox/HBox"]
+margin_left = 925.0
+margin_right = 1010.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 80, 0 )
+shortcut = SubResource( 5 )
+text = "下载 (D)"
+
+[node name="Label" type="Label" parent="Panel/VBox"]
+self_modulate = Color( 1, 1, 1, 0.705882 )
+margin_top = 88.0
+margin_right = 1010.0
+margin_bottom = 116.0
+text = "输出日志："
+
+[node name="Log" type="RichTextLabel" parent="Panel/VBox"]
+margin_top = 124.0
+margin_right = 1010.0
+margin_bottom = 528.0
+focus_mode = 2
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 3 )
+bbcode_enabled = true
+scroll_following = true
+selection_enabled = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBox"]
+margin_top = 536.0
+margin_right = 1010.0
+margin_bottom = 586.0
+
+[node name="Clear" type="Button" parent="Panel/VBox/HBoxContainer"]
+margin_right = 123.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 120, 50 )
+shortcut = SubResource( 7 )
+text = "清空日志 (C)"
+
+[connection signal="download_finished" from="Download" to="." method="_on_Download_download_finished"]
+[connection signal="downloaded" from="Download" to="." method="_on_Download_downloaded"]
+[connection signal="pre_donwloaded" from="Download" to="." method="_on_Download_pre_donwloaded"]
+[connection signal="timeout" from="Download/ReleaseTimer" to="Download" method="_release_thread"]
+[connection signal="focus_entered" from="Panel/VBox/HBox/UrlBox" to="." method="_on_UrlBox_focus_entered"]
+[connection signal="pressed" from="Panel/VBox/HBox/Download" to="." method="_download"]
+[connection signal="pressed" from="Panel/VBox/HBoxContainer/Clear" to="." method="_on_Clear_pressed"]

@@ -1,0 +1,122 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://script/menu/Directory.gd" type="Script" id=1]
+[ext_resource path="res://MenuList.gd" type="Script" id=2]
+[ext_resource path="res://script/menu/Setting.gd" type="Script" id=3]
+[ext_resource path="res://script/menu/File.gd" type="Script" id=4]
+[ext_resource path="res://script/menu/Help.gd" type="Script" id=5]
+[ext_resource path="res://script/menu/HelpInstall.gd" type="Script" id=6]
+[ext_resource path="res://script/menu/RichTextLabel.gd" type="Script" id=7]
+
+[sub_resource type="InputEventKey" id=3]
+alt = true
+scancode = 70
+
+[sub_resource type="ShortCut" id=4]
+shortcut = SubResource( 3 )
+
+[sub_resource type="InputEventKey" id=5]
+alt = true
+scancode = 83
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 5 )
+
+[sub_resource type="InputEventKey" id=6]
+alt = true
+scancode = 72
+
+[sub_resource type="ShortCut" id=7]
+shortcut = SubResource( 6 )
+
+[node name="MenuList" type="HBoxContainer"]
+margin_right = 1010.0
+margin_bottom = 34.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="File" type="MenuButton" parent="."]
+margin_right = 31.0
+margin_bottom = 400.0
+focus_mode = 2
+shortcut = SubResource( 4 )
+text = "文件 (F)"
+switch_on_hover = true
+script = ExtResource( 4 )
+
+[node name="Setting" type="MenuButton" parent="."]
+margin_left = 35.0
+margin_right = 66.0
+margin_bottom = 400.0
+focus_mode = 2
+shortcut = SubResource( 2 )
+text = "设置 (S)"
+switch_on_hover = true
+script = ExtResource( 3 )
+
+[node name="Help" type="MenuButton" parent="."]
+margin_left = 70.0
+margin_right = 104.0
+margin_bottom = 400.0
+focus_mode = 2
+shortcut = SubResource( 7 )
+text = "帮助 (H)"
+switch_on_hover = true
+script = ExtResource( 5 )
+
+[node name="Directory" type="FileDialog" parent="."]
+margin_left = 108.0
+margin_right = 708.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 600, 400 )
+popup_exclusive = true
+window_title = "设置下载文件保存路径"
+resizable = true
+dialog_text = " 文件下载路径"
+dialog_hide_on_ok = true
+mode = 2
+access = 2
+current_dir = "/home/z/Documents/Godot/Projects/YouGet"
+current_path = "/home/z/Documents/Godot/Projects/YouGet/"
+script = ExtResource( 1 )
+
+[node name="HelpInstall" type="AcceptDialog" parent="."]
+margin_left = 108.0
+margin_right = 508.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 400, 300 )
+popup_exclusive = true
+window_title = "安装帮助"
+resizable = true
+dialog_hide_on_ok = false
+dialog_autowrap = true
+script = ExtResource( 6 )
+
+[node name="MarginContainer" type="MarginContainer" parent="HelpInstall"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -36.0
+custom_constants/margin_bottom = 40
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HelpInstall/MarginContainer"]
+margin_right = 384.0
+margin_bottom = 316.0
+bbcode_enabled = true
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="click_item" from="File" to="." method="_on_Setting_click_item"]
+[connection signal="click_item" from="Setting" to="." method="_on_Setting_click_item"]
+[connection signal="click_item" from="Help" to="." method="_on_Setting_click_item"]
+[connection signal="dir_selected" from="Directory" to="." method="_on_Directory_dir_selected"]
+[connection signal="meta_clicked" from="HelpInstall/MarginContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
