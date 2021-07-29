@@ -8,26 +8,26 @@
 [ext_resource path="res://script/menu/HelpInstall.gd" type="Script" id=6]
 [ext_resource path="res://script/menu/RichTextLabel.gd" type="Script" id=7]
 
-[sub_resource type="InputEventKey" id=3]
+[sub_resource type="InputEventKey" id=1]
 alt = true
 scancode = 70
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
+
+[sub_resource type="InputEventKey" id=3]
+alt = true
+scancode = 83
 
 [sub_resource type="ShortCut" id=4]
 shortcut = SubResource( 3 )
 
 [sub_resource type="InputEventKey" id=5]
 alt = true
-scancode = 83
-
-[sub_resource type="ShortCut" id=2]
-shortcut = SubResource( 5 )
-
-[sub_resource type="InputEventKey" id=6]
-alt = true
 scancode = 72
 
-[sub_resource type="ShortCut" id=7]
-shortcut = SubResource( 6 )
+[sub_resource type="ShortCut" id=6]
+shortcut = SubResource( 5 )
 
 [node name="MenuList" type="HBoxContainer"]
 margin_right = 1010.0
@@ -41,7 +41,7 @@ __meta__ = {
 margin_right = 31.0
 margin_bottom = 400.0
 focus_mode = 2
-shortcut = SubResource( 4 )
+shortcut = SubResource( 2 )
 text = "文件 (F)"
 switch_on_hover = true
 script = ExtResource( 4 )
@@ -51,7 +51,7 @@ margin_left = 35.0
 margin_right = 66.0
 margin_bottom = 400.0
 focus_mode = 2
-shortcut = SubResource( 2 )
+shortcut = SubResource( 4 )
 text = "设置 (S)"
 switch_on_hover = true
 script = ExtResource( 3 )
@@ -61,7 +61,7 @@ margin_left = 70.0
 margin_right = 104.0
 margin_bottom = 400.0
 focus_mode = 2
-shortcut = SubResource( 7 )
+shortcut = SubResource( 6 )
 text = "帮助 (H)"
 switch_on_hover = true
 script = ExtResource( 5 )
@@ -72,9 +72,8 @@ margin_right = 708.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 600, 400 )
 popup_exclusive = true
-window_title = "设置下载文件保存路径"
+window_title = "文件下载路径"
 resizable = true
-dialog_text = " 文件下载路径"
 dialog_hide_on_ok = true
 mode = 2
 access = 2

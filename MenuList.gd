@@ -13,6 +13,7 @@ func _on_Setting_click_item(item_name: String) -> void:
 	match item_name:
 		"设置文件下载路径":
 			directory.popup_centered_ratio()
+			directory.window_title = "文件下载路径"
 		"打开下载文件目录":
 			OS.shell_open(Global.get_download_path())
 		"安装环境":
